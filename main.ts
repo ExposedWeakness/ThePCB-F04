@@ -58,9 +58,16 @@ let input2 = 0
 pins.servoSetPulse(AnalogPin.P8, 1500)
 input2 = 0
 let password = 132
+let locked = 1
 basic.forever(function () {
     if (password == input2) {
-        pins.servoWritePin(AnalogPin.P8, 95)
+        if (locked == 1) {
+            pins.servoWritePin(AnalogPin.P8, 180)
+            locked = 0
+        } else {
+            pins.servoWritePin(AnalogPin.P8, 0)
+            locked = 1
+        }
         for (let index = 0; index < 4; index++) {
             basic.showIcon(IconNames.Yes)
             music.playSoundEffect(music.createSoundEffect(WaveShape.Noise, 5000, 1, 255, 0, 500, SoundExpressionEffect.None, InterpolationCurve.Logarithmic), SoundExpressionPlayMode.UntilDone)
@@ -73,7 +80,5 @@ basic.forever(function () {
                 `)
         }
         input2 = 0
-        control.waitMicros(500)
-        pins.servoWritePin(AnalogPin.P8, 5)
     }
 })
