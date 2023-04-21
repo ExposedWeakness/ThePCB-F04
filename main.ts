@@ -55,17 +55,17 @@ input.onPinPressed(TouchPin.P1, function () {
     }
 })
 let input2 = 0
-pins.servoSetPulse(AnalogPin.P8, 1500)
 input2 = 0
 let password = 132
 let locked = 1
 basic.forever(function () {
     if (password == input2) {
+        input2 = 0
         if (locked == 1) {
-            pins.servoWritePin(AnalogPin.P8, 180)
+            pins.servoWritePin(AnalogPin.P8, 0)
             locked = 0
         } else {
-            pins.servoWritePin(AnalogPin.P8, 0)
+            pins.servoWritePin(AnalogPin.P8, 90)
             locked = 1
         }
         for (let index = 0; index < 4; index++) {
@@ -79,6 +79,5 @@ basic.forever(function () {
                 . . . . .
                 `)
         }
-        input2 = 0
     }
 })
